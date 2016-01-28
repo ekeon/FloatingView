@@ -84,7 +84,7 @@ public class FloatingService extends Service {
     windowManager.addView(vChatHead, params);
 
     closeParams = new WindowManager.LayoutParams(
-            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.TYPE_PHONE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -131,24 +131,30 @@ public class FloatingService extends Service {
           chathead.setTranslationX(0);
           chathead.setTranslationY(0);
 
+//          Log.d("TAG", "1a : " + btnClose.getTop());
+//          Log.d("TAG", "2b : " + btnClose.getRight());
+//          Log.d("TAG", "3c : " + btnClose.getBottom());
+//          Log.d("TAG", "4d : " + btnClose.getLeft());
+//          Log.d("TAG", "11 : " + btnClose.getX());
+//          Log.d("TAG", "22 : " + btnClose.getY());
+//
+//          Log.d("TAG", "5 : " + positionX);
+//          Log.d("TAG", "6 : " + positionY);
+//          Log.d("TAG", "7 : " + btnClose.getLayoutParams().width);
+//          Log.d("TAG", "8 : " + btnClose.getLayoutParams().height);
+
           showAndHideCloseButton(btnClose, false);
           return true;
         case MotionEvent.ACTION_MOVE:
           positionX = currentX + (int) (event.getRawX() - touchX);
           positionY = currentY + (int) (event.getRawY() - touchY);
+
           chathead.setTranslationX(positionX);
           chathead.setTranslationY(positionY);
 
-          Log.d("TAG", "1 : " + btnClose.getTop());
-          Log.d("TAG", "2 : " + btnClose.getRight());
-          Log.d("TAG", "3 : " + btnClose.getBottom());
-          Log.d("TAG", "4 : " + btnClose.getLeft());
-          Log.d("TAG", "5 : " + (currentX + (int)(event.getRawX() - touchX)));
-          Log.d("TAG", "6 : " + (currentY + (int)(event.getRawY() - touchY)));
-          Log.d("TAG", "7 : " + chathead.getTop());
-          Log.d("TAG", "8 : " + chathead.getRight());
-          Log.d("TAG", "9 : " + chathead.getBottom());
-          Log.d("TAG", "10 : " + chathead.getLeft());
+          btnClose.setTranslationX(positionX / 50);
+          btnClose.setTranslationY((positionY / 50) - (screenHeight * (0.10f)));
+
           return true;
       }
       return false;
